@@ -1,0 +1,7 @@
+# Project exclude paths
+/data/raw/old_files/
+/docs/
+/references/
+/results/
+/src/old/
+/visualization/

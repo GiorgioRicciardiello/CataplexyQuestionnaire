@@ -1,0 +1,38 @@
+| Variable       | Definition                                      |
+|---------------|------------------------------------------------|
+| AFTATHLETIC   | After athletic activities                     |
+| ANGER         | When you are angry                             |
+| DISCIPLINE    | When you discipline children                  |
+| DURATHLETIC   | During athletic activities                    |
+| ELATED        | When you are elated                           |
+| EMBARRAS      | When you are embarrassed                      |
+| EMOTIONAL     | When you remember an emotional moment         |
+| EXCITED       | When you are excited                          |
+| HAND          | Muscle weakness in hand and arms              |
+| HAPPY         | When you remember a happy moment              |
+| HEAD          | Muscle weakness head and shoulder dropping    |
+| JAW           | Muscle weakness jaw sagging                   |
+| JOKING        | When you hear or tell a joke                  |
+| KNEES         | Muscle weakness legs and knees                |
+| LAUGHING      | When you laugh                                |
+| MOVEDEMOT     | When you are moved by something emotional     |
+| PLAYGAME      | When you are playing an exciting game         |
+| QUICKVERBAL   | Quick response cataplexy                      |
+| ROMANTIC      | When you have a romantic thought or moment    |
+| SEX           | During sexual intercourse                     |
+| SPEECH        | Muscle weakness, speech becomes slurred      |
+| STARTLED      | When you are startled                         |
+| STRESSED      | When you are stressed                         |
+| SURPRISED     | When you are surprised                        |
+| TENSE         | When you are tense                            |
+| sex           | Gender of the patient                         |
+| ONSET         | first_muscle_weakness_age                     |
+| DURATION      | 84_muscle_weakness_duration                   |
+| SP             | Sleep paralysis                               |
+| SPSEVER        | Sleep paralysis severity                      |
+| SPONSET        | Sleep paralysis age onset                     |
+| SLEEPIONSET    | age sleep complaints                          |
+| SE             | Sleep latency                                 |
+| MEDCATA        | Cataplexy medication                          |
+| REMLAT        | rem latency                                   |
+|---------------|------------------------------------------------|

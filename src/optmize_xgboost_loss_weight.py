@@ -195,9 +195,9 @@ def optimize_fp_weight(train_data: pd.DataFrame,
              sensitivity_scores,
              marker='o',
              label='Sensitivity')
-    plt.xlabel('fp_weight')
+    plt.xlabel('FP Weight')
     plt.ylabel('Metric Value')
-    plt.title('Specificity and Sensitivity vs. fp_weight')
+    plt.title('Specificity and Sensitivity vs. FP Weight')
     plt.legend()
     plt.grid(True)
     plt.tight_layout()
@@ -210,11 +210,12 @@ def optimize_fp_weight(train_data: pd.DataFrame,
 # Example usage:
 if __name__ == "__main__":
     # %% Read data
-    df_data = pd.read_csv(config.get('data_pre_proc_files').get('ssq_ssqdx'))
-    df_data = df_data.loc[df_data['narcolepsy'] != 'pseudo narcolepsy']
-    df_data.rename(columns={'cataplexy_clear_cut': 'NT1'}, inplace=True)
+    df_data = pd.read_csv(config.get('data_pre_proc_files').get('anic_okun'))
+
     # %% Select columns and drop columns with nans
-    target = 'NT1'
+    target = 'NT1 ICSD3 - TR'
+    target_nt2 = target.replace('1', '2')
+
     categorical_var = ['sex', 'LAUGHING', 'ANGER', 'EXCITED',
                        'SURPRISED', 'HAPPY', 'EMOTIONAL', 'QUICKVERBAL', 'EMBARRAS',
                        'DISCIPLINE', 'SEX', 'DURATHLETIC', 'AFTATHLETIC', 'ELATED',
@@ -222,7 +223,6 @@ if __name__ == "__main__":
                        'JOKING', 'MOVEDEMOT', 'KNEES', 'JAW', 'HEAD', 'HAND', 'SPEECH',
                        'DQB10602']
     continuous_var = ['Age', 'BMI', 'ESS', 'SLEEPIONSET']
-
     columns = list(set(categorical_var + continuous_var + [target]))
     # remove Age and Sex so the questionnaire is inclusive
     columns = [col for col in columns if not col in ['sex', 'Age']]

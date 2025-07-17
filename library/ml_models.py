@@ -128,14 +128,14 @@ def train_xgboost(train_data: pd.DataFrame,
         #   if y=0:  ∂L/∂s =  3.2·σ(s)          (3.2× negative‐class logistic)
         grad = np.where(labels == 1,
                         -(1.0 - probs),
-                        3.2 * probs)
+                        2 * probs)
 
         # Hessian:
         #   if y=1:   ∂²L/∂s² = σ(s)(1 – σ(s))
         #   if y=0:   ∂²L/∂s² = 3.2·σ(s)(1 – σ(s))
         hess = np.where(labels == 1,
                         probs * (1.0 - probs),
-                        3.2 * probs * (1.0 - probs))
+                        2 * probs * (1.0 - probs))
 
         return grad, hess
 

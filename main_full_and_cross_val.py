@@ -116,7 +116,7 @@ if __name__ == '__main__':
             'features': col_ukbb_avail + ['DQB10602'],
             'target': target,
             'dqb': True,
-        }
+        },
 
     }
 

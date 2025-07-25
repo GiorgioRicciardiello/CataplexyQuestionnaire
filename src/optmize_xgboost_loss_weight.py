@@ -30,8 +30,9 @@ import numpy as np
 from sklearn.metrics import confusion_matrix, f1_score, accuracy_score, recall_score, roc_auc_score
 from sklearn.model_selection import KFold
 from scipy.optimize import minimize_scalar
+import pathlib
 from config.config import config
-from typing import List
+from typing import List, Optional
 import matplotlib.pyplot as plt
 
 def train_xgboost(train_data: pd.DataFrame,
@@ -129,7 +130,8 @@ def train_xgboost(train_data: pd.DataFrame,
 def optimize_fp_weight(train_data: pd.DataFrame,
                        train_labels: np.ndarray,
                        k: int = 5,
-                       weight_candidates:List[float]=None):
+                       weight_candidates:List[float]=None,
+                       output_path:Optional[pathlib.Path]=None) -> None:
     """
     Optimize the fp_weight hyperparameter via k‑fold cross validation. We only use the training folds to find the best
     weight.
@@ -201,6 +203,8 @@ def optimize_fp_weight(train_data: pd.DataFrame,
     plt.legend()
     plt.grid(True)
     plt.tight_layout()
+    if output_path:
+        plt.savefig(output_path, dpi=300)
     plt.show()
 
 
@@ -211,6 +215,7 @@ def optimize_fp_weight(train_data: pd.DataFrame,
 if __name__ == "__main__":
     # %% Read data
     df_data = pd.read_csv(config.get('data_pre_proc_files').get('anic_okun'))
+    base_path = config.get('results_path').get('results')
 
     # %% Select columns and drop columns with nans
     target = 'NT1 ICSD3 - TR'
@@ -242,5 +247,6 @@ if __name__ == "__main__":
     best_weight, best_score = optimize_fp_weight(train_data,
                                                  train_labels,
                                                  k=5,
-                                                 weight_candidates=weight_candidates)
+                                                 weight_candidates=weight_candidates,
+                                                 output_path=base_path.joinpath('xgboost_loss_weight.png'))
     print(f"\nOptimal fp_weight: {best_weight} with mean specificity: {best_score:.4f}")

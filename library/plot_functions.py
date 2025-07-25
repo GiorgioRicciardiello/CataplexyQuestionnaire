@@ -303,7 +303,8 @@ def plot_model_metrics_specific_columns(df: pd.DataFrame,
 
 
 def plot_elastic_net_model_coefficients(df_params: pd.DataFrame,
-                                        output_path: pathlib.Path = None):
+                                        output_path: pathlib.Path = None,
+                                        figsize:Optional[Tuple[int, int]] = None, ):
     """
     Generate a styled plot for the elastic net feature importance coefficients.
 
@@ -334,11 +335,13 @@ def plot_elastic_net_model_coefficients(df_params: pd.DataFrame,
     for i, feat in enumerate(unique_features):
         feature_to_color[feat] = cmap(i % 10)  # cycle through 10 distinct colors
 
+    if figsize is None:
+        figsize = (4 * n_configs, 8)
     # Create subplots: one for each configuration.
     fig, axes = plt.subplots(
         1,
         n_configs,
-        figsize=(4 * n_configs, 8),
+        figsize=figsize,
         sharey=True
     )
 

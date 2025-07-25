@@ -324,10 +324,11 @@ def compute_odds_ratios(stats_summary_report,
     plt.tight_layout()
     plt.show()
 
+
+
 if __name__ == '__main__':
     # df_data = pd.read_csv(config.get('data_pre_proc_files').get('ess_control_all'))
     df_data = pd.read_csv(config.get('data_pre_proc_files').get('anic_okun'))
-
 
     result_path = config.get('results_path').get('ess_model')
     result_path.mkdir(parents=True, exist_ok=True)

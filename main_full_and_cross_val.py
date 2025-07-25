@@ -432,7 +432,13 @@ if __name__ == '__main__':
 
     df_feature_importance['config'].replace(feature_set_mapper, inplace=True)
 
+
+    # plot_elastic_net_model_coefficients(df_feature_importance[df_feature_importance['config'].isin([ 'Reduced Feature Set + DQB1*06:02 (k=11)', 'Reduced Feature Set (k=10)'])],
+    #                                     figsize=(8,6),
+    #                                     output_path=path_plot_best_model)
+
     plot_elastic_net_model_coefficients(df_feature_importance,
+                                        # figsize=(8,6),
                                         output_path=path_plot_best_model)
 
     # Define the mapping of feature display names

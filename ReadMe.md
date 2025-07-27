@@ -37,7 +37,7 @@ The ML pipeline is implemented in modular Python scripts and follows this sequen
    * Outputs best trade-off between specificity and sensitivity
 
 
-4**`main_full_and_cross_val.py`**
+4. **`main_full_and_cross_val.py`**
 
    * Trains and evaluates ML models (Elastic Net, XGBoost, etc.)
    * Performs full and stratified 5-fold cross-validation

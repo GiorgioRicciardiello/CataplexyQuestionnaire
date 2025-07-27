@@ -1,7 +1,3 @@
-Here is a professional and visually informative `README.md` file for your second NT1 machine learning project, structured to highlight your expertise in both **machine learning** and **sleep medicine**, and to align with the scientific content of your manuscript:
-
----
-
 # 🧠 Narcolepsy Type 1 Classification via Cataplexy Questionnaire and HLA Typing
 
 ## 🔬 Project Objective

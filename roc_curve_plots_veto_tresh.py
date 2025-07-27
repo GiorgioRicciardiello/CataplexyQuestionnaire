@@ -18,7 +18,7 @@ from sklearn.metrics import roc_curve
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.metrics import confusion_matrix
-from roc_curve_plots import (
+from library.roc_curve_plots import (
     compute_best_thresholds,
     compute_metrics_across_folds_with_best_thresholds_and_veto,
     _compute_metrics,

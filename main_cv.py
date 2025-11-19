@@ -13,121 +13,6 @@ from tabulate import  tabulate
 import seaborn as sns
 
 # %%
-
-# path = r"C:\Users\riccig01\OneDrive\Projects\MignotLab\CataplexyQuestionnaire\data\pproc\for_publication\pp_anic_okun.xlsx"
-# df_final = pd.read_excel(path)
-#
-# df_csf = pd.read_excel(r"C:\Users\riccig01\OneDrive\Projects\MignotLab\CataplexyQuestionnaire\data\pproc\for_publication\csf_records.xlsx")
-# df_csf = df_csf[~df_csf['CSF'].isna()]
-#
-# # --- Identify overlapping columns ---
-# common_cols = list(set(df_csf.columns).intersection(df_final.columns))
-# print("Common columns:", common_cols)
-#
-# df_csf = df_csf[common_cols + ['CSF']]
-# df_final = df_final[common_cols]
-
-# --- normalize columns
-# def clean_soremp(series: pd.Series) -> pd.Series:
-#     """
-#     Clean and normalize 'SOREMP' column.
-#     Extracts number before ' of' if present, handles NaN, numeric, and malformed values.
-#     If 'of' not found, returns the original value.
-#
-#     Parameters
-#     ----------
-#     series : pd.Series
-#         Input column (e.g., '3 of 5', 4, NaN).
-#
-#     Returns
-#     -------
-#     pd.Series
-#         Cleaned numeric or original values.
-#     """
-#     def parse_value(x):
-#         if pd.isna(x):
-#             return np.nan
-#         if isinstance(x, (int, float)):
-#             return x
-#         try:
-#             x_str = str(x).strip().lower()
-#             if "of" in x_str:
-#                 val = x_str.split("of")[0].replace(",", ".").strip()
-#                 return float(val)
-#             # no 'of' → return numeric if possible, else original string
-#             val = float(x_str) if x_str.replace(".", "", 1).isdigit() else x_str
-#             return val
-#         except Exception:
-#             return x  # fallback to original if parsing fails
-#
-#     return series.apply(parse_value)
-#
-# df_csf["SOREMP"] = clean_soremp(df_csf["SOREMP"])
-# df_final["SOREMP"] = clean_soremp(df_final["SOREMP"])
-#
-#
-# df_csf['SOREMP'] = df_csf['SOREMP'].astype(float)
-# df_final['SOREMP'] = df_final['SOREMP'].astype(float)
-#
-#
-# df_csf['MSLT'] = df_csf['MSLT'].astype(float)
-# df_final['MSLT'] = df_final['MSLT'].astype(float)
-#
-# df_csf['BMI'] = df_csf['BMI'].fillna(-9).astype(float)
-# df_final['BMI'] = df_final['BMI'].fillna(-9).astype(float)
-#
-#
-#
-# # --- Merge using matching fields ---
-# df_merged = pd.merge(
-#     df_final,
-#     df_csf,
-#     on=common_cols,
-#     how="left",
-#     suffixes=("", "_CSF")
-# )
-#
-# merged_rows = []
-# for idx in range(len(df_csf)):
-#     mask = (
-#         (df_final["Age"] == df_csf.loc[idx, "Age"]) &
-#         (df_final["sex"] == df_csf.loc[idx, "sex"]) &
-#         (df_final["DQB10602"] == df_csf.loc[idx, "DQB10602"]) &
-#         (df_final["ESS"] == df_csf.loc[idx, "ESS"]) &
-#         (df_final["NT1 ICSD3 - TR"] == df_csf.loc[idx, "NT1 ICSD3 - TR"])
-#     )
-#
-#     matches = df_final[mask]
-#
-#     if not matches.empty:
-#         print(f"{idx}: {len(matches)} match(es) found.")
-#
-#         # Reset indexes to avoid InvalidIndexError
-#         match_reset = matches.reset_index(drop=True)
-#         csf_row = df_csf.loc[[idx]].reset_index(drop=True)
-#
-#         # Concatenate horizontally, ignoring index alignment
-#         merged_row = pd.concat([match_reset, csf_row.add_suffix("_CSF")], axis=1)
-#
-#         merged_rows.append(merged_row)
-#
-# # Combine all results
-# df_manual_merge = pd.concat(merged_rows, ignore_index=True) if merged_rows else pd.DataFrame()
-#
-# print(f"\nTotal merged pairs: {len(df_manual_merge)}")
-# print(df_manual_merge.head())
-#
-# print(f"\nTotal merged pairs: {len(df_manual_merge)}")
-# print(df_manual_merge.head().T)
-#
-#
-# print(f"Matched pairs with CSF values: {len(df_merged)}")
-# print(df_merged.head())
-
-
-
-
-# %%
 def _load_all_results(base_dir: Path) -> tuple[pd.DataFrame, pd.DataFrame]:
     mets, preds = [], []
     for sub in base_dir.iterdir():
@@ -555,14 +440,6 @@ if __name__ == '__main__':
                                prevalence_current_dataset=(df_data[target] == 1).sum() / df_data.shape[0],
                                scale=1.2)
 
-
-    # %% Feature Importance, XGBOOST
-    import pandas as pd
-    path = r"C:\Users\giorg\OneDrive - Fundacion Raices Italo Colombianas\projects\CataplexyQuestionnaire\data\pproc\dataset.xlsx"
-    df = pd.read_excel(path)
-    df = df[df['Included'] == 1]
-    path_new = r"C:\Users\giorg\OneDrive - Fundacion Raices Italo Colombianas\projects\CataplexyQuestionnaire\data\pproc\dataset_for_publication.xlsx"
-    df.to_excel(path_new)
 
 
 

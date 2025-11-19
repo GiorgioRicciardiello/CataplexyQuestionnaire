@@ -1,136 +1,165 @@
-Here is a professional and visually informative `README.md` file for your second NT1 machine learning project, structured to highlight your expertise in both **machine learning** and **sleep medicine**, and to align with the scientific content of your manuscript:
+# README.md
+
+# **Optimizing Machine Learning Classification of Narcolepsy Type 1 Using the Stanford Cataplexy Questionnaire and HLA-DQB1*06:02 Biomarker**
+
+## **Abstract**
+
+Narcolepsy type 1 (NT1) remains critically underdiagnosed due to its rarity, complexity of early symptoms, and limited access to confirmatory testing. Standard approaches such as polysomnography, MSLT, and CSF hypocretin are accurate but costly, invasive, and geographically inaccessible for large population screening.
+This work presents a scalable machine-learning framework based on a structured cataplexy questionnaire and minimal genetic information (HLA-DQB1*06:02). Using nested cross-validation, Optuna hyperparameter optimization, and robust thresholding strategies, our models achieve high specificity and clinically meaningful sensitivity across multiple feature sets.
+We introduce a biologically grounded **Veto Rule** that corrects non-HLA false positives and markedly improves specificity without degrading sensitivity. We additionally evaluate model behavior across realistic prevalence settings to assess feasibility for population-level screening.
+The resulting framework enables practical, interpretable, and scalable pre-screening for NT1 in clinical and epidemiological settings where neurophysiological sleep studies are not available.
 
 ---
 
-# 🧠 Narcolepsy Type 1 Classification via Cataplexy Questionnaire and HLA Typing
+# **Relevance**
 
-
-For the ESS feature set the best model was Random Forest with an AUC of 0.870 (95% CI: 0.846, 0.894), and at the τ_sp=0.614 it yielded a specificity of 88.2% (85.1%, 91.3%) and a sensitivity of 61.1% (56.0%, 66.1%). The ESS + HLA configuration was best represented by LDA with an AUC of 0.944 (95% CI: 0.928, 0.959), and at the  τ_sp=0.719 it yielded a specificity of 96.5% (95% CI:  95.5%, 97.6%) and a sensitivity of 61.1% (95% CI: 54.8%, 67.4%). Veto rule implementation corrected 81 false positives in the ESS configuration.
-
-The Full feature set (k=27) performed best with Random Forest, achieving an AUC of 0.995 (95% CI: 0.994, 0.997); at τ_sp=0.90 specificity was 99.9% (95% CI: 99.6%, 100.0%) and sensitivity 70.0% (95% CI: 63.2%, 76.8%). Inclusion of HLA (Full Feature Set + DQB1*06:02, k=28) yielded an AUC of 0.997 (95%CI: 0.995, 0.998). At τ_sp=0.903 it yielded a specificity of 100.0% (95%CI: 100.0%, 100.0%) and a sensitivity of 67.1% (95% CI: 59.7%, 74.5%). Veto rule implementation corrected one false positive in the ESS configuration.
-
-The reduced feature set (k = 10) was best modeled by SVM with an AUC of 0.994 (95% CI: 0.991–0.997); at τ_sp = 0.959, it achieved specificity of 99.9% (95% CI: 99.6–100.0%) and sensitivity of 66.1% (95% CI: 58.1–74.1%). When HLA was included (Reduced Feature Set + DQB1*06:02, k = 11), the best model was Random Forest with an AUC of 0.997 (95% CI: 0.995–0.998); at τ_sp = 0.931, specificity was 100.0% (95% CI: 100.0–100.0%) and sensitivity 66.1% (95% CI: 58.9–73.2%). Veto rule implementation had no effect for the reduced feature set.
-
-
-## 🔬 Project Objective
-
-This project implements and evaluates machine learning models for the **classification of Narcolepsy Type 1 (NT1)** using features derived from the Stanford Cataplexy Questionnaire and HLA-DQB1\*06:02 genotyping. The aim is to develop a **scalable, accurate screening tool** for NT1 suitable for large datasets such as the UK Biobank.
-
-We demonstrate that elastic net models trained on a small set of high-specificity cataplexy features and refined via HLA veto logic achieve **high specificity (>99%) and high sensitivity (>85%)**, offering a clinically viable alternative to more resource-intensive diagnostics like MSLT.
-
-## Feature Sets
-Venn diagram illustrating the overlap between the full questionnaire feature set (k=26) and the reduced feature set (k=10), excluding the HLA-DQB1*06:02 allele. Both feature sets were also evaluated with the addition of the HLA genotype (k=27 and k=11). Resulting in four feature sets to evaluate by each model. The reduced set includes emotional triggers (anger, joking, laughing, quick verbal response), muscle weakness locations (hand, jaw, knees, speech), and the Epworth Sleepiness Scale (ESS) score.
-<p align="center">
-  <img src="results_git/Figure_1.png" alt="Feature Sets" width="40%"/>
-</p>
+* Provides a low-cost, scalable pre-screening tool for NT1
+* Useful for large cohorts such as **UK Biobank**, **digital sleep platforms**, and **public health populations**
+* Demonstrates how **clinically structured questionnaires + minimal genotype** can approximate performance of resource-heavy diagnostics
+* Introduces reproducible ML methodology, pairing HLA vs non-HLA models with a biologically justified correction rule
 
 ---
 
-## 🧭 Pipeline Overview
+# **Figures**
 
-The ML pipeline is implemented in modular Python scripts and follows this sequence:
-
-1. **`pre_processing.py`**
-
-   * Loads raw questionnaire data
-   * Performs feature selection (full or reduced set)
-   * Encodes binary features
-   * Applies Bayesian Ridge imputation for missing values
-   * Splits data into training and validation sets
-
-2. **`generate_table_one.py`**
-
-   * Computes descriptive statistics for NT1 and control groups
-   * Generates Table 1: statistical tests and effect sizes for clinical variables
-
-3. **`optmize_xgboost_loss_weight.py`**
-
-   * Performs loss weight optimization for XGBoost to penalize false positives
-   * Outputs best trade-off between specificity and sensitivity
-
-
-4**`main_full_and_cross_val.py`**
-
-   * Trains and evaluates ML models (Elastic Net, XGBoost, etc.)
-   * Performs full and stratified 5-fold cross-validation
-   * Selects optimal specificity-weighted thresholds
-
-
-5. **`ess_cutoff_model.py`**
-
-   * Evaluates ESS-based logistic models as baseline
-   * Compares rule-based vs ML-based approaches
-
-6. **`roc_curve_plots_veto_tresh.py`**
-
-   * Applies post-hoc veto rule using HLA-DQB1\*06:02 status
-   * Plots ROC curves across feature sets and models
-   * Outputs stage I and II ROC visualizations
+> Replace `Figure_1.png`, `Figure_2.png`, `Figure_3.png` with your exact filenames if different.
 
 ---
 
-## 📊 Key Results
-
-### ✅ Best Model Performance (Reduced Feature Set, k=10)
-Results metrics from Stage II.
-
-| Method        | Specificity (%) | Sensitivity (%) |
-| ------------- | --------------- | --------------- |
-| Elastic Net   | **99.68**       | 84.29           |
-| With HLA veto | 99.14           | **87.86**       |
-
-Adding HLA-DQB1\*06:02 as a post-hoc veto significantly increased sensitivity with only a marginal drop in specificity—ideal for large-scale screening scenarios.
-
----
-
-## 🖼️ Figures
-
-### 🔍 Elastic Net Feature Importance
-Analyzing feature importance analysis using the Elastic Net model (Figure 4) revealed a consistent pattern across all four feature configurations. Emotional triggers such as laughing, joking, and anger ranked among the top features based on their regularized weights. Similarly, muscle weakness features, particularly head drooping, knee buckling, and speech slurring also exhibited high model coefficients. This co-occurrence of high-weighted emotional triggers and muscle weakness features across feature set configurations reflects a robust association of dominant muscle weakness and emotional triggers that are consistently present in NT1 cases. In contrast, certain features had negative coefficients, indicating inverse association with NT1. These included after athletic activities, tense, and embarrassment. These findings further validate the design of the Reduced Feature Set (k=10), which effectively captures the most predictive cataplexy-related features without the need for excessive questioning.
-<p align="center">
-  <img src="results_git/Figure_4.png" alt="Feature Sets" width="80%"/>
-</p>
-
-
-### 📈 ROC Curve with Veto Threshold
-In Stage I, we evaluated machine learning models for narcolepsy type 1 (NT1) classification using different feature configurations and thresholds. The highest performance was observed with Elastic Net using the full feature set and HLA-DQB106:02 biomarker, achieving 83.75% sensitivity and 99.78% specificity (AUC 99.61%). Notably, applying a post-hoc veto rule to models trained without HLA yielded comparable performance, with Elastic Net reaching 90.71% sensitivity and 99.57% specificity. These findings demonstrate the strong discriminative power of HLA-DQB106:02 and support the veto rule as an effective post-hoc strategy in scenarios where biomarker data is unavailable.
+## **Figure 1 — Model Features**
 
 <p align="center">
-  <img src="results_git/Figure_3.png" alt="Feature Sets" width="80%"/>
+  <img src="results_git/Figure_1.png" alt="Figure 1" width="30%"/>
 </p>
+
+**Caption:**
+Figure 1. Venn diagram illustrates the overlap between the full questionnaire feature set (k = 26) and the reduced feature set (k = 10), excluding the HLA-DQB1*06:02 allele. Both feature sets were also evaluated with the addition of the HLA genotype (k=27 and k=11). Resulting in four feature sets to evaluate by each model. The reduced set includes emotional triggers (anger, joking, laughing, quick verbal response), muscle weakness locations (hand, jaw, knees, speech), and the Epworth Sleepiness Scale (ESS) score. 
 
 ---
 
-## 📁 Project Structure
+## **Figure 2 — Best Performing Models*
+
+<p align="center">
+  <img src="results_git/Figure_2.png" alt="Figure 2" width="80%"/>
+</p>
+
+**Caption:**
+Figure 2. ROC curves and confusion matrices of the best-performing models across the ESS (K=1), ESS + DQB106:02 (K=2),  full feature set (k = 27), full feature set + DQB106:02 (k = 28), reduced feature set (k = 10), and reduced feature set + DQB106:02 (k = 11) configurations. Confusion matrices depict the classification at the obtained thresholds at training, with non-HLA feature set at the first row, HLA feature sets at the second row, and veto-corrected predictions from non-HLA feature set at the third row. Models incorporating HLA-DQB1*06:02 achieved an average specificity of 98%, while those without HLA resulted with more false positives (average specificity of 96%). Application of the veto rule corrected 81 false positives in the ESS feature set, one in the full feature set (k = 27) set, and none in the Reduced feature set. Random Forest (RF); Linear Discriminant Analysis (LDA); Support Vector Machine (SVM)
+---
+
+## **Figure 3 — Feature Importance**
+
+<p align="center">
+  <img src="results_git/Figure_3.png" alt="Figure 3" width="80%"/>
+</p>
+
+**Caption:**
+Figure 3. Normalized SHAP feature importances for the best-performing model in each feature set configuration. Emotional triggers such as laughing and joking were the strongest predictors of NT1, followed by muscle weakness features (head, knees) and ESS score. Incorporation of HLA-DQB106:02 increased its relative contribution, particularly in the Reduced feature sets, underscoring its high discriminative value alongside symptom-based features.
+---
+
+# **Code Architecture**
+
+The repository is organized for **clarity, modularity, and reproducibility**, mirroring best practices for clinical ML research.
 
 ```
-.
-├── pre_processing.py             # Data loading, cleaning, feature selection
-├── generate_table_one.py        # Descriptive stats and group comparisons
-├── main_full_and_cross_val.py   # Core model training and validation
-├── optmize_xgboost_loss_weight.py # Optimize FP/TP trade-offs for XGBoost
-├── ess_cutoff_model.py          # Rule-based baseline from ESS
-├── roc_curve_plots_veto_tresh.py# Post-hoc HLA-veto logic and ROC plots
-├── figures/
-│   ├── elastic_net_feature_importance.png
-│   └── roc_curve_veto.png
-├── results/
-│   └── model_metrics.csv
-└── README.md
+project/
+│
+├── main_cv.py                    # Main pipeline: nested CV, Optuna, metrics, veto, plots
+│
+├── config/
+│   └── config.py                 # Paths and run configuration
+│
+├── library/
+│   └── ml_questionnaire/
+│       ├── training.py           # Nested CV + Optuna search (models, pipelines, folds)
+│       ├── scoring.py            # Metrics, CI, model selection, thresholding
+│       ├── veto_rule.py          # HLA-negative FP correction + metric recomputation
+│       ├── visualization.py      # ROC, CM, HLA-vs-nonHLA, PPV plots
+│       └── shap_im_pipeline.py   # SHAP interpretability for tree models
+│
+└── results_git/                  # Figures used in manuscript and README
 ```
 
 ---
 
+# **Pipeline Overview**
 
-## 💡 Citation
+## **Run Analysis**
 
-If you use this repository, please cite our paper once published. For early reference:
-
-```bibtex
-@unpublished{ricciardiello2025nt1,
-  title={Optimizing Machine Learning Classification of Narcolepsy Type 1 Using the Stanford Cataplexy Questionnaire and HLA-DQB1*06:02 Biomarker},
-  author={Ricciardiello Mejia, Giorgio and Brink-Kjaer, Andreas and Mignot, Emmanuel},
-  year={2025},
-  note={Manuscript in preparation}
-}
+```python
+    main_cv.py
 ```
+
+* Imports questionnaire categorical variables
+* Normalizes continuous variables (ESS, BMI, MSLT where available)
+* Removes columns with excessive missingness
+* Generates:
+
+  * Full feature set
+  * UKBB-compatible reduced set
+  * ESS-only baselines
+  * Each with ± HLA
+
+Features are kept consistent across all model families.
+
+---
+
+## **Training Pipeline**
+
+The project utilizes the ml_questionnaire library to compute the training pipeline with k-folds cross validation
+```python
+    library/ml_questionnaire/training.py
+```
+
+The pipeline evalute the models:
+* Random Forest
+* LightGBM
+* XGBoost
+* Elastic Net
+* Logistic Regression
+* SVM
+* LDA
+
+I perform an inner loop with 
+* Optuna TPE sampler (250–300 trials)
+* Maximizes AUC or specificity, depending on configuration
+
+* and produces the output files
+
+* `metrics_outer_folds.csv`
+* `predictions_outer_folds.csv`
+* Full hyperparameter history
+* Per-fold validation records
+
+The scoring function for the predictions are defined in 
+```python
+    library/ml_questionnaire/scoring.py
+```
+The script implements:
+
+* Youden J
+* Maximum specificity (spec_max)
+* Probability cutoff 0.5
+* Sensitivity/specificity CI
+* Best-model selection per feature set (`select_best_model_type_per_config`)
+
+For the `veto_rule.py`
+
+> If model **did not train with HLA**, then:
+> **HLA-negative false positives are flipped to negative.**
+
+Outputs:
+
+* `df_predictions_with_veto.parquet`
+* `df_metrics_with_veto.parquet`
+* `veto_count.csv`
+
+The final visualizations are computed by the `visualization.py` script.
+
+# **Reproducibility**
+
+* Fixed random seed (`42`)
+* Deterministic Optuna sampling
+* Full logging of hyperparameters
+* Exact model configurations stored for manuscript replication
+

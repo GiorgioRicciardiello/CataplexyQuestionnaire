@@ -1,0 +1,9 @@
+source,DQB10602,NT1 ICSD3 - TR,NT2 ICSD3 - TR,Counts
+okun,0.0,0,1,18
+okun,0.0,1,0,20
+okun,0.0,not meet criteria,not meet criteria,39
+okun,1.0,0,1,25
+okun,1.0,1,0,224
+okun,1.0,1,NaN,1
+okun,1.0,not meet criteria,0,1
+okun,1.0,not meet criteria,not meet criteria,129

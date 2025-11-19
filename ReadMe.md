@@ -22,15 +22,7 @@ Keywords: Cataplexy, Questionnaire, UK Biobank, ML, Muscle Weakness, DQB10602.
 * Demonstrates how **clinically structured questionnaires + minimal genotype** can approximate performance of resource-heavy diagnostics
 * Introduces reproducible ML methodology, pairing HLA vs non-HLA models with a biologically justified correction rule
 
----
-
-# **Figures**
-
-> Replace `Figure_1.png`, `Figure_2.png`, `Figure_3.png` with your exact filenames if different.
-
----
-
-## **Figure 1 — Model Features**
+## **Model Features**
 
 <p align="center">
   <img src="results_git/Figure_1.png" alt="Figure 1" width="30%"/>
@@ -41,7 +33,7 @@ Figure 1. Venn diagram illustrates the overlap between the full questionnaire fe
 
 ---
 
-## **Figure 2 — Best Performing Models*
+## **Best Performing Models*
 
 <p align="center">
   <img src="results_git/Figure_2.png" alt="Figure 2" width="80%"/>
@@ -51,7 +43,7 @@ Figure 1. Venn diagram illustrates the overlap between the full questionnaire fe
 Figure 2. ROC curves and confusion matrices of the best-performing models across the ESS (K=1), ESS + DQB106:02 (K=2),  full feature set (k = 27), full feature set + DQB106:02 (k = 28), reduced feature set (k = 10), and reduced feature set + DQB106:02 (k = 11) configurations. Confusion matrices depict the classification at the obtained thresholds at training, with non-HLA feature set at the first row, HLA feature sets at the second row, and veto-corrected predictions from non-HLA feature set at the third row. Models incorporating HLA-DQB1*06:02 achieved an average specificity of 98%, while those without HLA resulted with more false positives (average specificity of 96%). Application of the veto rule corrected 81 false positives in the ESS feature set, one in the full feature set (k = 27) set, and none in the Reduced feature set. Random Forest (RF); Linear Discriminant Analysis (LDA); Support Vector Machine (SVM)
 ---
 
-## **Figure 3 — Feature Importance**
+## **Feature Importance**
 
 <p align="center">
   <img src="results_git/Figure_3_shap.png" alt="Figure 3" width="80%"/>

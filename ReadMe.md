@@ -50,7 +50,7 @@ Figure 2. ROC curves and confusion matrices of the best-performing models across
 ## **Figure 3 — Feature Importance**
 
 <p align="center">
-  <img src="results_git/Figure_3.png" alt="Figure 3" width="80%"/>
+  <img src="results_git/Figure_3_shap.png" alt="Figure 3" width="80%"/>
 </p>
 
 **Caption:**

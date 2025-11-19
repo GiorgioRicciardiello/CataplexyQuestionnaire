@@ -4,10 +4,14 @@
 
 ## **Abstract**
 
-Narcolepsy type 1 (NT1) remains critically underdiagnosed due to its rarity, complexity of early symptoms, and limited access to confirmatory testing. Standard approaches such as polysomnography, MSLT, and CSF hypocretin are accurate but costly, invasive, and geographically inaccessible for large population screening.
-This work presents a scalable machine-learning framework based on a structured cataplexy questionnaire and minimal genetic information (HLA-DQB1*06:02). Using nested cross-validation, Optuna hyperparameter optimization, and robust thresholding strategies, our models achieve high specificity and clinically meaningful sensitivity across multiple feature sets.
-We introduce a biologically grounded **Veto Rule** that corrects non-HLA false positives and markedly improves specificity without degrading sensitivity. We additionally evaluate model behavior across realistic prevalence settings to assess feasibility for population-level screening.
-The resulting framework enables practical, interpretable, and scalable pre-screening for NT1 in clinical and epidemiological settings where neurophysiological sleep studies are not available.
+**Background**: Narcolepsy type 1 (NT1) is characterized by sleepiness, disturbed sleep, and cataplexy—episodes of sudden muscle tone loss triggered by emotions. Accurate diagnosis in large-scale studies remains challenging due to NT1’s low prevalence and reliance on polysomnography. Prior studies have shown that cataplexy-related questions can help identify genuine cataplexy. This study investigates whether a brief cataplexy questionnaire can support scalable NT1 screening.
+
+**Methods**: We analyzed responses from 280 NT1 patients and 927 controls from the Stanford narcolepsy database. We trained six ML classifiers using 10- and 27-item cataplexy feature sets (emotional triggers, affected muscles), Epworth Sleepiness Scale (ESS) with and without HLA-DQB106:02 typing. Model was trained with nested cross-validation and Optuna optimization. A post hoc veto rule reclassified any subject predicted as NT1 but lacking the HLA-DQB106:02 allele as non-NT1 to reduce false positives when HLA was not part of the feature set. Given the low prevalence of NT1, optimization prioritized specificity.
+
+**Results**: ESS obtained an AUC of 0.863 (95% CI: 0.840–0.885) with sensitivity of 39.9% and specificity of 92.1%. The reduced feature set with (k = 11) and without (k=10) HLA obtained similar AUCs of 0.995 (95% CI: 0.993–0.998). The full feature set with (k=28) and without (k=27) HLA obtained a similar AUCs of 0.996 (95% CI: 0.995–0.998). Inclusion of HLA corrected false positives increasing specificity up to 98.8%, 99.0% and 99.2%, respectively.
+
+**Conclusions**: ML applied to cataplexy questionnaire and HLA typing enables scalable NT1 screening. Further population-based validations are needed to confirm these findings using larger samples of controls.
+Keywords: Cataplexy, Questionnaire, UK Biobank, ML, Muscle Weakness, DQB10602.
 
 ---
 

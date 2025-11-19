@@ -4,6 +4,14 @@ Here is a professional and visually informative `README.md` file for your second
 
 # 🧠 Narcolepsy Type 1 Classification via Cataplexy Questionnaire and HLA Typing
 
+
+For the ESS feature set the best model was Random Forest with an AUC of 0.870 (95% CI: 0.846, 0.894), and at the τ_sp=0.614 it yielded a specificity of 88.2% (85.1%, 91.3%) and a sensitivity of 61.1% (56.0%, 66.1%). The ESS + HLA configuration was best represented by LDA with an AUC of 0.944 (95% CI: 0.928, 0.959), and at the  τ_sp=0.719 it yielded a specificity of 96.5% (95% CI:  95.5%, 97.6%) and a sensitivity of 61.1% (95% CI: 54.8%, 67.4%). Veto rule implementation corrected 81 false positives in the ESS configuration.
+
+The Full feature set (k=27) performed best with Random Forest, achieving an AUC of 0.995 (95% CI: 0.994, 0.997); at τ_sp=0.90 specificity was 99.9% (95% CI: 99.6%, 100.0%) and sensitivity 70.0% (95% CI: 63.2%, 76.8%). Inclusion of HLA (Full Feature Set + DQB1*06:02, k=28) yielded an AUC of 0.997 (95%CI: 0.995, 0.998). At τ_sp=0.903 it yielded a specificity of 100.0% (95%CI: 100.0%, 100.0%) and a sensitivity of 67.1% (95% CI: 59.7%, 74.5%). Veto rule implementation corrected one false positive in the ESS configuration.
+
+The reduced feature set (k = 10) was best modeled by SVM with an AUC of 0.994 (95% CI: 0.991–0.997); at τ_sp = 0.959, it achieved specificity of 99.9% (95% CI: 99.6–100.0%) and sensitivity of 66.1% (95% CI: 58.1–74.1%). When HLA was included (Reduced Feature Set + DQB1*06:02, k = 11), the best model was Random Forest with an AUC of 0.997 (95% CI: 0.995–0.998); at τ_sp = 0.931, specificity was 100.0% (95% CI: 100.0–100.0%) and sensitivity 66.1% (95% CI: 58.9–73.2%). Veto rule implementation had no effect for the reduced feature set.
+
+
 ## 🔬 Project Objective
 
 This project implements and evaluates machine learning models for the **classification of Narcolepsy Type 1 (NT1)** using features derived from the Stanford Cataplexy Questionnaire and HLA-DQB1\*06:02 genotyping. The aim is to develop a **scalable, accurate screening tool** for NT1 suitable for large datasets such as the UK Biobank.

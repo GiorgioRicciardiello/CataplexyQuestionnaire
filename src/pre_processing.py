@@ -342,12 +342,21 @@ def pre_process_anic_dataset(dataset_path: pathlib.Path) -> pd.DataFrame:
     df_anic.loc[:, ess_columns] = df_anic.loc[:, ess_columns].astype(float)
     df_anic.loc[:, ess_columns] = df_anic.loc[:, ess_columns].replace([9, 8], np.nan)
 
-    for val in df_anic.loc[:, df_anic.columns.str.contains('epworth')].columns:
+    ess_columns = df_anic.columns[df_anic.columns.str.contains('epworth')].tolist()
+    # remove the wrongly labeled epworth question
+    ess_columns = [col for col in ess_columns if col != '12_epworth_daytime_sleepiness']
+    print("ESS columns:", ess_columns)
+
+    val_max_dict = {}
+    for col in ess_columns:
+        val_max_dict[col] = df_anic[col].max()
+
+    for val in ess_columns:
         print(f'{val}: {df_anic[val].value_counts().to_dict()}')
         print(f'\t\t max:{max(df_anic[val].value_counts().to_dict().keys())}')
 
     # ignore numbers that are used to mark missinges
-    df_anic['epworth_score'] = df_anic.loc[:, df_anic.columns.str.contains('epworth')].sum(skipna=True, axis=1)
+    df_anic['epworth_score'] = df_anic.loc[:, ess_columns].sum(skipna=True, axis=1)
 
     print(f'Distribution ESS Score: \n {df_anic["epworth_score"].describe()}')
 
@@ -385,7 +394,7 @@ def pre_process_anic_dataset(dataset_path: pathlib.Path) -> pd.DataFrame:
     df_anic = df_anic[cols]
     df_anic.reset_index(drop=True, inplace=True)
     df_anic = df_anic.drop(columns=[
-        'csf hcrt concentration crude (1)',
+        # 'csf hcrt concentration crude (1)',
         'dx (1)',
         # 'mslt #sorem (1)',  # sorem (1)
         'cataplexy_clear_cut',
@@ -730,6 +739,19 @@ if __name__ == "__main__":
     df_anic = pre_process_anic_dataset(dataset_path=config.get('data_raw_files').get('anic'))
     # df_anic['narcolepsy'] = df_anic['narcolepsy'].map({1: 'narcolepsy', 0: 'non-narcolepsy'})
 
+    # %% rename csf column
+    col_csf = 'csf hcrt concentration crude (1)'
+    if not col_csf in df_anic.columns:
+        df_anic[col_csf] = np.nan
+        print(f'CFS Anic: \n{df_anic[col_csf].describe()}')
+
+    # okun does not ha e csf data
+    if not col_csf in df_okun.columns:
+        df_okun[col_csf] = np.nan
+        print(f'CFS Okun: \n{df_okun[col_csf].describe()}')
+
+
+
     # %% Merge the two dataset
     # Mapping columns of SSQ HLA
     emotions_interest = ["LAUGHING", "QUICKVERBAL", "ANGER"]
@@ -809,6 +831,7 @@ if __name__ == "__main__":
         'MOVEDEMOT': 'MOVEDEMOT',
         target:target,
         target_nt2: target_nt2,
+        'csf': col_csf,
         'source': 'source'
     }
     mapper_inv = {val: key for key, val in mapper.items()}
@@ -1091,6 +1114,7 @@ if __name__ == "__main__":
                  'source',
                  'MSLT',
                  'SOREMP',
+                 'csf',
                  target,
                  target_nt2
                  ]

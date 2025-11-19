@@ -616,9 +616,9 @@ def compute_full_training(models:Dict[str, object],
 
         return df_impute
 
-    scaler = StandardScaler()
-    if 'ESS' in features:
-        df_model['ESS'] = scaler.fit_transform(df_model[["ESS"]])
+    # scaler = StandardScaler()
+    # if 'ESS' in features:
+    #     df_model['ESS'] = scaler.fit_transform(df_model[["ESS"]])
 
     data = df_model[features]
     labels = df_model[target]
@@ -641,6 +641,18 @@ def compute_full_training(models:Dict[str, object],
 
         # OPTIONAL: If your model has special cases (e.g., “Threshold on ESS” or “Okun Tree”),
         # handle them first. Otherwise, do a straight fit‐predict on all data.
+
+        # ----------------------------------------
+        # 1) STANDARDIZE continuous features (except for special models)
+        # ----------------------------------------
+        if model_name not in ["Threshold on ESS", "Okun Tree"]:
+            cont_cols = [
+                col for col in X_full.columns
+                if not set(X_full[col].dropna().unique()).issubset({0, 1})
+            ]
+            if cont_cols:
+                scaler = StandardScaler()
+                X_full[cont_cols] = scaler.fit_transform(X_full[cont_cols])
 
         if model_name == "Threshold on ESS":
             # Compute best threshold on the full data

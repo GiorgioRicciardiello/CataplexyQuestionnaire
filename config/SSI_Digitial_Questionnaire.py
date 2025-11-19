@@ -234,7 +234,7 @@ key_mapping = {
     9: 'father_father_birth_place',
     10: 'father_father_ethnic_group_id',
     11: 'sleep_quality',
-    12: 'epworth_daytime_sleepiness',
+    12: 'daytime_sleepiness',
     13: 'epworth_reading',
     14: 'epworth_tv',
     15: 'epworth_public_place',

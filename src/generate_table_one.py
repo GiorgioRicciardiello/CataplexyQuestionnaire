@@ -436,6 +436,7 @@ def stats_test_continuous(
 
 if __name__ == '__main__':
     df_data = pd.read_csv(config.get('data_pre_proc_files').get('anic_okun'))
+
     # df_data.rename(columns={'cataplexy_clear_cut': 'NT1'}, inplace=True)
     target = 'NT1 ICSD3 - TR'
     target_nt2 = target.replace('1', '2')
@@ -653,7 +654,7 @@ if __name__ == '__main__':
     # df_tab_one = df_tab_one.sort_values(by='Variable', ascending=True).reset_index(drop=True)
 
     # %% save the tables
-    df_tab_one.to_csv(config.get('results_path').get('results').joinpath('table_one_reduced.csv'), index=False,)
+    df_tab_one.to_csv(config.get('results_path').get('results').joinpath('table_one_reduced_updated.csv'), index=False,)
     # df_stats_bin.to_csv(config.get('results_path').get('results').joinpath('stats_bin.csv'), index=False,)
     # df_stats_cont.to_csv(config.get('results_path').get('results').joinpath('stats_cont.csv'), index=False,)
 

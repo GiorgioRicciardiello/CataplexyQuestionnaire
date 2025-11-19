@@ -542,7 +542,7 @@ def plot_dcurves_per_fold(df_results: pd.DataFrame,
     else:
         axes = [axes]
 
-    config_file_name  = df_results.loc[df_results['configuration_formal'] == configuration, 'configuration'].unique()[0]
+    config_file_name  = df_results.loc[df_results['configuration_formal'] == configuration, 'config'].unique()[0]
     # --- Plot for each fold ---
     for ax, fold in zip(axes, unique_folds):
         # Filter data for the current fold
@@ -734,12 +734,12 @@ def multi_ppv_plot_combined(df_predictions_model: pd.DataFrame,
     fig, ax = plt.subplots(figsize=figsize)
     prevalence_range = np.logspace(-5, -3, 100)
 
-    for feature_set_ in df_predictions_model['configuration'].unique():
+    for feature_set_ in df_predictions_model['config'].unique():
         ppvs_avg = np.zeros_like(prevalence_range)
 
         fold_count = 0
         for fold in df_predictions_model['fold_number'].unique():
-            mask = ((df_predictions_model['configuration'] == feature_set_) &
+            mask = ((df_predictions_model['config'] == feature_set_) &
                     (df_predictions_model['fold_number'] == fold))
 
             if mask.sum() == 0:
@@ -801,7 +801,7 @@ def multi_calibration_plot(df_predictions: pd.DataFrame,
     :return: DataFrame with calibration metrics per fold and configuration
     """
     unique_folds = df_predictions['fold_number'].unique()
-    unique_configs = df_predictions['configuration'].unique()
+    unique_configs = df_predictions['config'].unique()
     fig, axs = plt.subplots(rows, math.ceil(len(unique_folds) / rows), figsize=figsize)
     axs = axs.flatten()
 
@@ -815,7 +815,7 @@ def multi_calibration_plot(df_predictions: pd.DataFrame,
             mask = (
                 (df_predictions['fold_number'] == fold_num) &
                 (df_predictions['model_name'] == model_name) &
-                (df_predictions['configuration'] == config)
+                (df_predictions['config'] == config)
             )
             if not mask.any():
                 continue

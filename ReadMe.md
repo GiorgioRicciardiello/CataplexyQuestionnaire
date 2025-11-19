@@ -162,4 +162,3 @@ The final visualizations are computed by the `visualization.py` script.
 * Deterministic Optuna sampling
 * Full logging of hyperparameters
 * Exact model configurations stored for manuscript replication
-
